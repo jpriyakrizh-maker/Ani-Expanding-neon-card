@@ -4,6 +4,13 @@
   box-sizing: border-box;
 }
 
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+}
+
 body {
   min-height: 100vh;
   background: #050505;
@@ -15,11 +22,15 @@ body {
 }
 
 .app {
+  width: 100%;
   min-height: 100vh;
+
   display: flex;
   justify-content: center;
   align-items: center;
+
   overflow: hidden;
+  position: relative;
 }
 
 .cards-container {
@@ -29,20 +40,35 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+
   gap: 120px;
 
   padding: 120px 60px;
 }
 
-/* WRAPPER */
+/* =========================
+   WRAPPER
+========================= */
 
 .card-wrapper {
   position: relative;
+
   width: 260px;
   height: 145px;
+
+  transition:
+    width 0.55s ease,
+    height 0.55s ease;
 }
 
-/* PROFILE CARD */
+.card-wrapper:has(.profile-card.expanded) {
+  width: 330px;
+  height: 390px;
+}
+
+/* =========================
+   PROFILE CARD
+========================= */
 
 .profile-card {
   position: relative;
@@ -69,7 +95,9 @@ body {
   overflow: visible;
 }
 
-/* NEON CORNER */
+/* =========================
+   NEON CORNER
+========================= */
 
 .profile-card::before {
   content: "";
@@ -99,13 +127,17 @@ body {
   pointer-events: none;
 }
 
-/* HOVER */
+/* =========================
+   HOVER
+========================= */
 
 .profile-card:hover {
   transform: translateY(-5px);
 }
 
-/* EXPANDED */
+/* =========================
+   EXPANDED
+========================= */
 
 .profile-card.expanded {
   width: 330px;
@@ -118,7 +150,9 @@ body {
     12px 12px 25px rgba(255, 0, 100, 0.25);
 }
 
-/* IMAGE */
+/* =========================
+   IMAGE
+========================= */
 
 .profile-image {
   position: absolute;
@@ -171,7 +205,9 @@ body {
   display: block;
 }
 
-/* CONTENT */
+/* =========================
+   CONTENT
+========================= */
 
 .profile-content {
   position: absolute;
@@ -210,7 +246,9 @@ body {
   font-size: 12px;
 }
 
-/* STATS */
+/* =========================
+   STATS
+========================= */
 
 .stats {
   display: flex;
@@ -242,7 +280,9 @@ body {
   font-size: 10px;
 }
 
-/* BUTTONS */
+/* =========================
+   BUTTONS
+========================= */
 
 .buttons {
   display: flex;
@@ -296,46 +336,53 @@ body {
     0 0 18px #ff2775;
 }
 
-/* MESSAGE BOX INSIDE CARD */
+/* =========================
+   MESSAGE BOX
+   EXACT CENTER
+========================= */
 
 .card-message-box {
   position: absolute;
 
-  left: 15px;
-  right: 15px;
-  bottom: 18px;
+  width: 270px;
 
-  padding: 14px;
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  padding: 18px;
 
   background: #090909;
 
   border: 1px solid #00eaff;
 
   box-shadow:
-    0 0 15px rgba(0, 234, 255, 0.6),
-    5px 5px 0 rgba(255, 0, 100, 0.35);
+    0 0 20px rgba(0, 234, 255, 0.7),
+    7px 7px 0 rgba(255, 0, 100, 0.35);
 
-  z-index: 20;
+  z-index: 100;
 
-  animation: messageOpen 0.3s ease;
+  animation: messageOpen 0.35s ease;
 }
 
-/* MESSAGE HEADER */
+/* =========================
+   MESSAGE HEADER
+========================= */
 
 .card-message-box .message-header {
   display: flex;
 
   justify-content: space-between;
-
   align-items: center;
 
   color: #00eaff;
 
-  font-size: 13px;
+  font-size: 15px;
 
   font-weight: bold;
 
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .card-message-box .message-header button {
@@ -345,19 +392,33 @@ body {
 
   color: #ff2775;
 
-  font-size: 22px;
+  font-size: 24px;
 
   cursor: pointer;
+
+  line-height: 1;
+
+  transition: 0.3s ease;
 }
 
-/* INPUT */
+.card-message-box .message-header button:hover {
+  color: white;
+
+  text-shadow:
+    0 0 8px #ff2775,
+    0 0 15px #ff2775;
+}
+
+/* =========================
+   INPUT
+========================= */
 
 .card-message-box input {
   width: 100%;
 
-  height: 38px;
+  height: 42px;
 
-  padding: 0 10px;
+  padding: 0 12px;
 
   background: #151515;
 
@@ -367,7 +428,7 @@ body {
 
   color: white;
 
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .card-message-box input:focus {
@@ -377,12 +438,14 @@ body {
     0 0 8px rgba(0, 234, 255, 0.5);
 }
 
-/* SEND */
+/* =========================
+   SEND BUTTON
+========================= */
 
 .card-message-box .send-btn {
   width: 100%;
 
-  height: 36px;
+  height: 40px;
 
   border: none;
 
@@ -407,23 +470,25 @@ body {
     0 0 20px #00eaff;
 }
 
-/* MESSAGE ANIMATION */
+/* =========================
+   MESSAGE ANIMATION
+========================= */
 
 @keyframes messageOpen {
   from {
     opacity: 0;
-
-    transform: scale(0.8) translateY(15px);
+    transform: translate(-50%, -50%) scale(0.85);
   }
 
   to {
     opacity: 1;
-
-    transform: scale(1) translateY(0);
+    transform: translate(-50%, -50%) scale(1);
   }
 }
 
-/* MOBILE */
+/* =========================
+   MOBILE
+========================= */
 
 @media (max-width: 700px) {
   .cards-container {
@@ -440,5 +505,10 @@ body {
 
   .card-wrapper {
     width: 260px;
+  }
+
+  .card-message-box {
+    width: 270px;
+    max-width: 90%;
   }
 }

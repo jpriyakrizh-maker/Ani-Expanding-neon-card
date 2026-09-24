@@ -13,7 +13,7 @@ function App() {
       id: 1,
       name: "Alex Developer",
       username: "@alexdev",
-      image: "/images/developer.png",
+      image: "/Ani-Expanding-neon-card/images/developer.png",
       followers: "12K",
       following: "1.8K",
       projects: "126",
@@ -22,12 +22,21 @@ function App() {
       id: 2,
       name: "Code Master",
       username: "@codemaster",
-      image: "/images/developer.png",
+      image: "/Ani-Expanding-neon-card/images/developer.png",
       followers: "8.4K",
       following: "920",
       projects: "84",
     },
   ];
+
+  const handleMessage = (developer) => {
+    setExpanded(developer.id);
+    setSelectedDeveloper(developer);
+  };
+
+  const handleCloseMessage = () => {
+    setSelectedDeveloper(null);
+  };
 
   return (
     <div className="app">
@@ -45,16 +54,14 @@ function App() {
                 );
                 setSelectedDeveloper(null);
               }}
-              onMessage={(developer) => {
-                setExpanded(developer.id);
-                setSelectedDeveloper(developer);
-              }}
+              onMessage={handleMessage}
             />
 
+            {/* MESSAGE BOX - INSIDE CARD */}
             {selectedDeveloper?.id === dev.id && (
               <MessageBox
                 developer={selectedDeveloper}
-                onClose={() => setSelectedDeveloper(null)}
+                onClose={handleCloseMessage}
               />
             )}
 
